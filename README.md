@@ -1,7 +1,7 @@
 # IoT-Integrated Fingerprint Access and Intrusion Alert System for Automotive Security
 • Designed a vehicle security system using Arduino Uno, GSM, fingerprint sensor, GPS, and ESP-32 camera. • Enabled fingerprint-based access, real-time GPS tracking, and live video monitoring. • Configured SMS alerts to notify users instantly during unauthorized access attempts.
 
-UPDATE #1
+**UPDATE #1**
 
 Hardware Connections & Setup:
 
@@ -50,3 +50,16 @@ Instead
 2.If your project uses GPIO12 (e.g., for a sensor or camera), connect it only after the ESP32 has booted successfully.
 
 This is one of the major flaws of my project as of now and I am actively addressing this issue by integrating shift registers to offload the GPS module control to alternative GPIOs, thereby ensuring stable boot and operation.
+
+
+**UPDATE #2**
+
+Included a virtual circuit diagram to assist other users in understanding and replicating the hardware connections accurately.
+
+<img width="3000" height="2852" alt="circuit_image" src="https://github.com/user-attachments/assets/f5c7df93-ea2e-4a74-bdd0-772621401d20" />
+
+To ensure reliable operation, I have supplied the GSM module and NEO-6M GPS module with their own dedicated 5V power sources, as their peak current demands exceed the maximum current available from the ESP32-CAM’s onboard voltage regulator. The ESP32-CAM board, particularly when streaming video or using WiFi, can experience peak current draws of up to 500–600mA. However, GSM modules typically require extremely high current during transmission bursts—up to 2A, and in some cases, up to 3A may be necessary to accommodate brief transmission pulses. The NEO-6M GPS module is less demanding, with a typical operating current of 45–47mA, but startup currents and acquisition modes may briefly reach higher values (worst-case figures from the datasheet are about 67mA)
+
+**NOTE**
+
+When powering modules from separate supplies, always ensure that the ground (GND) line of each module's power source is connected to the ESP32-CAM’s GND pin. This common ground reference is essential for signal integrity and proper communication between devices.
